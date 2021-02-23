@@ -31,7 +31,7 @@ export const setupPackageReferences = (
   }, [] as TSConfigReference[]);
 
   const tsconfigFile = path.resolve(
-    `${__dirname}/../${pkg.location}/tsconfig.json`
+    `${process.cwd()}/${pkg.location}/tsconfig.json`
   );
 
   if (fs.existsSync(tsconfigFile)) {

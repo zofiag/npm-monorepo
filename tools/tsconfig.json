@@ -4,5 +4,6 @@
     "composite": true,
     "rootDir": ".",
     "outDir": "lib"
-  }
+  },
+  "references": []
 }
