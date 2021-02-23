@@ -2,16 +2,19 @@
   "files": [],
   "references": [
     {
-      "path": "./tools/"
-    },
-    {
       "path": "./packages/shared1"
     },
     {
       "path": "./packages/shared2"
     },
     {
+      "path": "./apps/api"
+    },
+    {
       "path": "./apps/client"
     },
+    {
+      "path": "./tools"
+    }
   ]
 }
