@@ -9,7 +9,7 @@
     "dev": "run-p watch:**",
     "lint": "eslint . --ext .ts,.tsx --cache",
     "watch:tc": "tsc -b tsconfig.build.json -w",
-    "watch:refs": "onchange **/package.json -- yarn tsc:refs",
+    "watch:refs": "onchange {apps,packages,tools}/**/package.json -- yarn tsc:refs",
     "tsc:refs": "tsc-refs-run",
     "new:package": "hygen new package"
   },

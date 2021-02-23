@@ -6,7 +6,7 @@
   },
   "references": [
     {
-      "path": "../../packages/shared1"
+      "path": "../../packages/shared2"
     }
   ]
 }
