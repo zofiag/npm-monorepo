@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -b tsconfig.build.json",
-    "dev": "tsc -b tsconfig.build.json -w"
+    "dev": "run-p watch:**",
+    "watch:tc": "tsc -b tsconfig.build.json -w",
+    "watch:refs": "onchange **/package.json -- yarn setuprefs",
+    "setuprefs": "ts-node config/setup-references.js"
   },
   "author": "",
   "license": "ISC",
