@@ -17,6 +17,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^14.14.31",
+    "onchange": "^7.1.0",
     "strip-json-comments": "^3.1.1",
     "typescript": "^4.1.5"
   },
