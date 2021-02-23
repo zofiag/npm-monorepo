@@ -1,24 +1,19 @@
-import { execute } from "./utils/general";
-import {
-  setupReferences,
-  updateTSConfigReferencesIfChanged,
-} from "./utils/ts-references";
-import { getPackageJson } from "./utils/json-file";
+import { setupPackageReferences } from "./utils/setup-package-references";
+import { getWorkspaceInfo } from "./utils/get-workspace-info";
+import { getPackageJson } from "./utils/get-package-json";
+import { updateTSConfigJSON } from "./utils/update-ts-config";
 
 const CYCLES_MAX_COUNT = 500;
 
 const setupTSConfigReferences = async () => {
   const runDetails = [];
   let cycle = 0;
-  let lastPassActions;
+
+  console.log("🦄 Updating package references 🦝");
 
   try {
-    console.log("Generating packages references");
-    const workspacesInfo = await execute("yarn workspaces info");
+    const { packages } = await getWorkspaceInfo();
 
-    let packages = JSON.parse(workspacesInfo.match(/\{[\s\S]*\}/)[0]);
-
-    setupReferences(packages);
     const packageNames = Object.keys(packages);
 
     console.log(
@@ -28,32 +23,29 @@ const setupTSConfigReferences = async () => {
     );
 
     let resolvedReferences = [];
-    const leafPackages = [];
-    const resolvedRefs = {};
+    const resolvedRefs: { [name: string]: boolean } = {};
 
     for (let i = 0; i < packageNames.length; i = ++i % packageNames.length) {
       if (i == 0) {
         cycle++;
-        lastPassActions = [
-          `cycle ${cycle} resolved count ${resolvedReferences.length} packages count ${packageNames.length}`,
-        ];
       }
-
-      lastPassActions.push(`Processing ${packageNames[i]}`);
 
       const name = packageNames[i];
       const pkg = packages[name];
 
       if (resolvedRefs[name]) {
+        // package resolved, let's skip to another one
         continue;
       }
 
       const packageJSON = getPackageJson(pkg.location);
-      const devDependencies = Object.keys(packageJSON.devDependencies || {});
 
+      // reduce dependencies to find number of resolved dependencies
+      // if dependency is already a resolved workspace
+      // or it is a dev dependency mark as resolved
       const resolvedCount = pkg.workspaceDependencies.reduce(
         (resolved, refName) => {
-          if (resolvedRefs[refName] || devDependencies.includes(refName)) {
+          if (resolvedRefs[refName] || refName in packageJSON.devDependencies) {
             return resolved + 1;
           }
           return resolved;
@@ -65,7 +57,11 @@ const setupTSConfigReferences = async () => {
         !pkg.workspaceDependencies.length ||
         resolvedCount === pkg.workspaceDependencies.length
       ) {
-        leafPackages.push(pkg);
+        // if workspace has no dependencies or all dependencies are resolved
+        // we can mark it as resolved
+        // setup back references of dependant packages
+        setupPackageReferences(pkg, packages);
+        // mark package as resolved
         resolvedRefs[name] = true;
         resolvedReferences.push({
           name,
@@ -76,10 +72,16 @@ const setupTSConfigReferences = async () => {
       }
 
       if (resolvedReferences.length === packageNames.length) {
+        // all packages resolved, we are done
         break;
       }
 
       if (cycle === CYCLES_MAX_COUNT) {
+        const unresolved = Object.keys(resolvedRefs).filter(
+          (name) => !resolvedRefs[name]
+        );
+        runDetails.push("Unresolved packages:");
+        runDetails.push(unresolved);
         throw new Error("🚨 Circular dependency detected");
       }
     }
@@ -92,14 +94,13 @@ const setupTSConfigReferences = async () => {
       path: `./${ref.location}`,
     }));
 
-    updateTSConfigReferencesIfChanged(
+    updateTSConfigJSON(
       `${__dirname}/../tsconfig.build.json`,
       referencePaths,
       false
     );
   } catch (e) {
-    runDetails.push("\nFinal run was:");
-    runDetails.push(...lastPassActions);
+    runDetails.push("\nFinal run was:\n");
     console.log(runDetails.join("\n"));
     console.error(`\n${e.message}\n`);
     process.exit(1);

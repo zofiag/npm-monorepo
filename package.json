@@ -9,13 +9,15 @@
     "dev": "run-p watch:**",
     "lint": "eslint . --ext .ts,.tsx --cache",
     "watch:tc": "tsc -b tsconfig.build.json -w",
-    "watch:refs": "onchange **/package.json -- yarn setuprefs",
-    "setuprefs": "ts-node config/setup-references.js",
+    "watch:refs": "onchange **/package.json -- yarn tsc:refs",
+    "tsc:refs": "ts-node tools/project-references/project-references.ts",
     "new:package": "hygen new package"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^14.14.31",
+    "strip-json-comments": "^3.1.1",
     "typescript": "^4.1.5"
   },
   "workspaces": [
