@@ -1,0 +1,14 @@
+{
+  "name": "@namespace/app-api",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w --preserveWatchOutput",
+    "test": "echo \"T.B.D.\""
+  },
+  "dependencies": {
+    "@namespace/shared1": "1.0.0"
+  }
+}
+

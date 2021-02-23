@@ -1,3 +1,6 @@
+apps/**/lib
+packages/**/lib
+
 node_modules/
 .vscode/
 *.tsbuildinfo
