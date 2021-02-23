@@ -1,0 +1,16 @@
+{
+  "name": "@namespace/shared2",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"T.B.D.\""
+  },
+  "dependencies": {
+    "@namespace/shared2": "1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.5"
+  }
+}

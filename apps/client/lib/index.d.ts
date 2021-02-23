@@ -1,0 +1,1 @@
+import "@namespace/shared2";

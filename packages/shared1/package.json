@@ -1,0 +1,17 @@
+{
+  "name": "@namespace/shared1",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w --preserveWatchOutput",
+    "test": "echo \"T.B.D.\""
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.14.1"
+  },
+  "peerDependencies": {
+    "typescript": "^4.0.0"
+  }
+}
