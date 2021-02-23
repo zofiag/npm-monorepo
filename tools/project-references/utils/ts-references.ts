@@ -1,3 +1,6 @@
+import fs from "fs";
+import path from "path";
+
 import { updateJsonFileIfChanged, getPackageJson } from "./json-file";
 
 export const updateTSConfigReferencesIfChanged = (
