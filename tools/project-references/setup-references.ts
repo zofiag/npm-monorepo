@@ -3,6 +3,7 @@ import {
   setupReferences,
   updateTSConfigReferencesIfChanged,
 } from "./utils/ts-references";
+import { getPackageJson } from "./utils/json-file";
 
 const CYCLES_MAX_COUNT = 500;
 
