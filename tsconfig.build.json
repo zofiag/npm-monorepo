@@ -2,6 +2,9 @@
   "files": [],
   "references": [
     {
+      "path": "./tools/"
+    },
+    {
       "path": "./packages/shared1"
     },
     {
@@ -9,6 +12,6 @@
     },
     {
       "path": "./apps/client"
-    }
+    },
   ]
 }

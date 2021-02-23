@@ -5,7 +5,7 @@ import { updateJsonFile } from "./update-json-file";
 export const updateTSConfigJSON = (
   tsConfigFile: string,
   references: TSConfigReference[],
-  silent: boolean = true
+  silent = true
 ) => {
   const hasChanged = updateJsonFile(tsConfigFile, (tsConfigObj) => {
     return { ...tsConfigObj, references };

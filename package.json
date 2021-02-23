@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .ts,.tsx --cache",
     "watch:tc": "tsc -b tsconfig.build.json -w",
     "watch:refs": "onchange **/package.json -- yarn tsc:refs",
-    "tsc:refs": "ts-node tools/project-references/project-references.ts",
+    "tsc:refs": "tsc-refs-run",
     "new:package": "hygen new package"
   },
   "author": "",
@@ -22,7 +22,8 @@
   },
   "workspaces": [
     "packages/*",
-    "apps/*"
+    "apps/*",
+    "tools/"
   ],
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^4.15.2",

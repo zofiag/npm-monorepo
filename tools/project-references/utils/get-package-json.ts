@@ -7,7 +7,8 @@ export const getPackageJson = (location: string) => {
     return packageJSONMap[location];
   }
 
-  const packageJSON = require(`${__dirname}/../${location}/package.json`);
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const packageJSON = require(`${process.cwd()}/${location}/package.json`);
   packageJSONMap[location] = packageJSON;
 
   return packageJSON;

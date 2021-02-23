@@ -1,8 +1,11 @@
 {
-  "name": "@namespace/",
+  "name": "@namespace/tools",
   "version": "1.0.0",
   "main": "lib/index.js",
   "private": true,
+  "bin": {
+    "tsc-refs-run": "./lib/project-references/project-references.js"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsc -w --preserveWatchOutput",

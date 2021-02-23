@@ -1,5 +1,4 @@
-apps/**/lib
-packages/**/lib
+**/lib/**
 
 node_modules/
 .vscode/

@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { setupPackageReferences } from "./utils/setup-package-references";
 import { getWorkspaceInfo } from "./utils/get-workspace-info";
 import { getPackageJson } from "./utils/get-package-json";
@@ -87,7 +88,7 @@ const setupTSConfigReferences = async () => {
     }
 
     resolvedReferences = resolvedReferences.filter((ref) =>
-      ref.name.includes("@graphyapp/")
+      ref.name.includes("@namespace/")
     );
 
     const referencePaths = resolvedReferences.map((ref) => ({
@@ -95,7 +96,7 @@ const setupTSConfigReferences = async () => {
     }));
 
     updateTSConfigJSON(
-      `${__dirname}/../tsconfig.build.json`,
+      `${process.cwd()}/tsconfig.build.json`,
       referencePaths,
       false
     );
