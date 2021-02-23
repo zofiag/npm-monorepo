@@ -9,5 +9,5 @@ to: <%= absPath %>/tsconfig.json
   },
   "include": [
     "./src"
-  ],
+  ]
 }
